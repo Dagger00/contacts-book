@@ -1,14 +1,14 @@
 package com.springapp.mvc.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
+
 
 import javax.sql.DataSource;
-import java.util.LinkedList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -18,7 +18,9 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository {
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
+    public UserRepositoryImpl(){
+
+    }
     public UserRepositoryImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
@@ -26,11 +28,16 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public List<UserTO> getUsers() {
-
-        final List<UserTO> listWithUsers = new LinkedList<UserTO>();
-        final UserTO user = new UserTO();
-        user.setFirstName("Vasiliy");
-        listWithUsers.add(user);
+        final String sql = "SELECT * FROM \"user\"";
+        final List<UserTO> listWithUsers = jdbcTemplate.query(sql, new RowMapper<UserTO>() {
+            @Override
+            public UserTO mapRow(ResultSet resultSet, int i) throws SQLException {
+                UserTO user = new UserTO();
+                user.setFirstName(resultSet.getString("first_name"));
+                user.setLastName(resultSet.getString("last_name"));
+                return user;
+            }
+        });
         return listWithUsers;
     }
 }

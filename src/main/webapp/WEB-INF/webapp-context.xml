@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns:jee="http://www.springframework.org/schema/jee"
+<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:jee="http://www.springframework.org/schema/jee"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
        default-autowire="byType">
-    <mvc:annotation-driven/>
+
+    <context:component-scan base-package="com.springapp.mvc"/>
 
     <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/contacts"/>
 
-    <bean id="userRepositoryImpl" class="com.springapp.mvc.repository.UserRepositoryImpl">
-        <constructor-arg index="0" ref="dataSource"/>
-    </bean>
-
-    <bean id="ajaxController" class="com.springapp.mvc.ajax.AjaxController">
-        
+    <bean id="userRepository" class="com.springapp.mvc.repository.UserRepositoryImpl">
+        <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>
 </beans>

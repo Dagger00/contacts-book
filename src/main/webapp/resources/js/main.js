@@ -6,6 +6,7 @@ $(function () {
         url: '/users',
         dataType: 'json'
     }).done(function (data) {
+        console.log(data);
         var html = '';
         data.forEach(function (user) {
 

@@ -9,8 +9,6 @@ import java.util.List;
 /**
  * Created by zenet_000 on 8/24/2015.
  */
-@Service
-@Scope(WebApplicationContext.SCOPE_REQUEST)
 public interface UserRepository {
     List<UserTO> getUsers();
 }
