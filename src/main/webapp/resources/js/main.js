@@ -1,28 +1,85 @@
 $(function () {
 
-    var $container = $('.page__list');
+    var $contactDialog = $('.modal_contact'),
+        $userDialog = $('.modal_user'),
+        $overlay = $('.overlay');
 
-    $.ajax({
-        url: '/users',
-        dataType: 'json'
-    }).done(function (data) {
-        console.log(data);
-        var html = '';
-        data.forEach(function (user) {
+    $('.button_add').bind('click', function () {
+        $contactDialog.fadeIn(300);
+        $overlay.fadeIn(300);
+        var userID = $(this).data('id');
+        $('.userid').text(userID);
+    });
 
-            html += '<div class="user">';
-            html += '<div class="user__name">' + user.firstName + ' ' + user.lastName + '</div>';
-            html += '<div class="user__contacts">';
-            user.contacts.forEach(function (contact) {
-               html += '<div class="contact">';
-               html += '<div class="contact__type">' + contact.type + '</div>';
-               html += '<div class="contact__value">' + contact.value + '</div>';
-               html += '</div>';
-            });
-            html += '</div>';
-            html += '</div>'
+    $('.button_adduser').bind('click', function () {
+        $userDialog.fadeIn(300);
+        $overlay.fadeIn(300);
+    });
+
+    $overlay.bind('click', function () {
+        $contactDialog.hide();
+        $userDialog.hide();
+        $(this).hide();
+    });
+
+    $('.add_contact').bind('submit', function (event) {
+        event.preventDefault();
+        var typeID = event.target[0].value;
+        var value = event.target[1].value;
+        var userID = $('.userid').text();
+        console.log(userID);
+        console.log(typeID);
+        console.log(value);
+        $.ajax({
+            url: '/contacts',
+            method: 'POST',
+            data: {
+                userID: userID,
+                typeID: typeID,
+                value: value
+            }
+        }).done(function () {
+            location.reload();
         });
+    });
 
-        $container.html(html);
-    })
+    $('.button_deleteuser').bind('click', function () {
+        var id = $(this).data('id');
+
+        $.ajax({
+            url: '/users/' + id,
+            method: 'DELETE'
+        }).done(function () {
+            location.reload();
+        });
+    });
+
+    $('.button_delete').bind('click', function () {
+        var contactId = $(this).data('id');
+
+        $.ajax({
+            url: '/contacts/' + contactId,
+            method: 'DELETE'
+        }).done(function () {
+            location.reload();
+        });
+    });
+
+    $('.add_user').bind('submit', function (event) {
+        event.preventDefault();
+        var firstName = event.target[0].value;
+        var lastName = event.target[1].value;
+        $.ajax({
+            url: '/users',
+            method: 'POST',
+            data: {
+                firstName: firstName,
+                lastName: lastName
+            }
+        }).done(function () {
+            location.reload();
+        });
+    });
+
+
 });

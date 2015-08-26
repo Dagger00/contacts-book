@@ -1,9 +1,5 @@
 package com.springapp.mvc.repository;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
-
 import java.util.List;
 
 /**
@@ -11,4 +7,14 @@ import java.util.List;
  */
 public interface UserRepository {
     List<UserTO> getUsers();
+
+    List<TypeTO> getTypes();
+
+    void addUser(String firstName, String lastName);
+
+    void addContact(int userID, int typeID, String value);
+
+    void deleteUser(int userID);
+
+    void deleteContact(int contactID);
 }

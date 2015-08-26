@@ -5,28 +5,33 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
 .page {
     width: 100%;
     height: 100%;
     background-color: #F7F7F7;
     padding-top: 15px;
 }
+
 .page__button {
     width: 500px;
     margin: 0 auto;
 }
+
 .button {
     background-color: #455A64;
     padding: 10px 20px;
     color: #FFFFFF;
     border: none;
     border-radius: 3px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     cursor: pointer;
 }
+
 .page__list {
     margin-top: 15px;
 }
+
 .user {
     box-sizing: border-box;
     width: 500px;
@@ -34,12 +39,71 @@ html, body {
     margin-bottom: 15px;
     padding: 10px;
     background-color: #FFFFFF;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
-.user__name {
+
+.user__head {
+    overflow: hidden;
     font-size: 19px;
     border-bottom: 1px solid #455A64;
 }
+
+.head__name {
+    float: left;
+}
+
+.head__button {
+    float: right;
+}
+
+.user__contacts {
+    overflow: hidden;
+}
+
+.contact {
+    overflow: hidden;
+}
+
+.contact__body {
+    float: left;
+    line-height: 35px;
+}
+
+.contact__type {
+    display: inline-block;
+}
+
+.contact__value {
+    display: inline-block;
+}
+
+.contact__button {
+    float: right;
+}
+
+.button_add {
+    padding: 5px 10px;
+    margin: 5px;
+}
+
+.button_delete {
+    padding: 5px 10px;
+    margin: 5px;
+}
+
+.button_deleteuser {
+    padding: 5px 10px;
+    margin: 5px;
+}
+
+.button_submituser {
+    margin-left: 20px;
+}
+
+.button_submitcontact {
+    margin-left: 20px;
+}
+
 .overlay {
     display: none;
     position: fixed;
@@ -50,7 +114,8 @@ html, body {
     background-color: rgba(50, 50, 50, .5);
 }
 
-.modal {
+.modal_contact {
+    height: 300px;
     display: none;
     position: fixed;
     width: 500px;
@@ -58,4 +123,62 @@ html, body {
     top: 10%;
     left: 50%;
     background-color: #FFFFFF;
+}
+
+.modal_user {
+    height: 300px;
+    display: none;
+    position: fixed;
+    width: 500px;
+    margin-left: -250px;
+    top: 10%;
+    left: 50%;
+    background-color: #FFFFFF;
+}
+
+.modal__fields {
+    overflow: hidden;
+}
+
+.field__input {
+    width: 100%;
+    z-index: 2;
+    height: 32px;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    padding: 0 5px;
+    background: transparent;
+    top: 20px;
+    position: absolute;
+}
+
+.field__input:valid ~ .field__label,
+.field__input:focus ~ .field__label {
+    top: 0;
+}
+
+.field__label {
+    z-index: 1;
+    left: 10px;
+    top: 27px;
+    position: absolute;
+    transition: top .3s;
+}
+
+.field {
+    display: inline-block;
+    width: 39%;
+    height: 60px;
+    position: relative;
+    margin-left: 20px;
+}
+
+.userid {
+    display: none;
+}
+
+.modal__header {
+    font-size: 20px;
+    padding-left: 20px;
+    padding-top: 20px;
 }
